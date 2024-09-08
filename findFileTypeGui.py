@@ -4,7 +4,7 @@ from tkinter import filedialog
 def choose_dir():
     dir_path_search = filedialog.askdirectory()
     if dir_path_search:
-        labelSearchDir.config(text=f"Ausgewählter Pfad: {dir_path_search}")
+        label_search_dir.config(text=f"Ausgewählter Pfad: {dir_path_search}")
     # todo - add logic
 
 def readTextfield():
@@ -40,23 +40,31 @@ root.minsize(window_width, window_height)
 root.maxsize(700, 500)
 
 # ini frames
-choose_dir_frame = tk.Frame(root)
-choose_dir_frame.grid(pady=20, padx=20)
+choose_dir_frame_top = tk.Frame(root, pady=5, padx=20)#, bg="lightblue") 
+choose_dir_frame_top.grid(row=0, column=0, sticky="w")
 
-file_type_frame = tk.Frame(root)
-file_type_frame.grid(pady=20, padx=20)
+choose_dir_frame = tk.Frame(root, pady=5, padx=20)#, bg="lightcoral")
+choose_dir_frame.grid(row=1, column=0, sticky="w")
 
-output_file_frame =tk.Frame(root)
-output_file_frame.grid(pady=20, padx=20)
+file_type_frame = tk.Frame(root, pady=10, padx=20)#, bg="lightgreen")
+file_type_frame.grid(row=2, column=0, sticky="w")
+
+output_file_frame =tk.Frame(root, pady=5, padx=20)#, bg="skyblue")
+output_file_frame.grid(row=3, column=0, sticky="w")
+
+# choose_dir_frame_top
+label_search_dir_desc = tk.Label(choose_dir_frame_top, text="Verzeichnis zum durchsuchen auswählen")
+label_search_dir_desc.grid(row=0, column=0, sticky="w")
+choose_dir_frame_top.grid_columnconfigure(0)
 
 # choose_dir_frame
-labelSearchDir = tk.Label(choose_dir_frame, text="Kein Verzeichnis ausgewählt")
-labelSearchDir.grid(row=0, column=0, sticky="w")
+label_search_dir = tk.Label(choose_dir_frame, text="Kein Verzeichnis ausgewählt")
+label_search_dir.grid(row=0, column=0, sticky="w")
 
 choose_dir_frame.grid_columnconfigure(1, minsize=10)
 
 buttonChoose = tk.Button(choose_dir_frame, text="Verzeichnis auswählen", command=choose_dir)
-buttonChoose.grid(row=0, column=2)
+buttonChoose.grid(row=0, column=2, sticky="e")
 
 # file_type_frame
 file_type_text = tk.Text(file_type_frame, height=1, width=20)
