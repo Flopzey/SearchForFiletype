@@ -1,33 +1,34 @@
 import tkinter as tk
 from tkinter import filedialog
+import findFileType
+
 
 def choose_dir():
     dir_path_search = filedialog.askdirectory()
     if dir_path_search:
         label_search_dir.config(text=f"Ausgewählter Pfad: {dir_path_search}")
-    # todo - add logic
+        findFileType.set_search_directory(dir_path_search)
 
 def readTextfield():
     content = file_type_text.get("1.0", tk.END)
-    # todo - add logic / remove print
+    findFileType.set_file_type_to_search(content)
     print(f"Textfeld-Inhalt:\n{content}")
 
 def start_search():
-    # todo - add logic / remove print
+    findFileType.find_files()
     print(f"Button 'Suchen' pressed!")
 
 def choose_output():
-    dir_path_output = filedialog.askdirectory()
+    dir_path_output = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
     if dir_path_output:
         label_output_file.config(text=f"Ausgewählter Pfad: {dir_path_output}")
-    
-    # todo - add logic
+        findFileType.set_output_file_path(dir_path_output)
 
 root = tk.Tk()
 root.title("Suche Dateitypen")
 
 window_width = 380
-window_height = 250
+window_height = 225
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
@@ -37,7 +38,7 @@ y = (screen_height // 2) - (window_height // 2)
 
 root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 root.minsize(window_width, window_height)
-root.maxsize(700, 500)
+root.maxsize(875, window_height)
 
 # ini frames
 choose_dir_frame_top = tk.Frame(root, pady=5, padx=20)#, bg="lightblue") 
